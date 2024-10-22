@@ -54,9 +54,15 @@ export function addNewHistory(newHistory) {
      * - store의 detailList 새로 갱신
      * - store.currentFunds 새로 갱신
      */
-    store.detailList = null;
-    store.currentFunds = null;
+    console.log("newHistory",newHistory);
+    if(store.detailList[todayId]) {
+      store.detailList[todayId] = store.detailList[todayId].push(newHistory);
+    } else {
+      store.detailList[todayId] = [newHistory];
+    }
 
+    store.currentFunds = newHistory.amount;
+    console.log(store);
     updateStorage();
     return true;
   } catch (error) {
