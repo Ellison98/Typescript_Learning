@@ -12,16 +12,16 @@
 
 ```json
 {
-    "currentFunds": 1000000,
+	"currentFunds": 1000000,
 }
 
 // 가계부 내역
 {
-    "id": "...",
-    "category": "coffee" | "meal" | "shopping" | "mart",
-    "description": "블라블라",
-    "amount": 1000,
-    "createAt": "2023-01-11T05:01:39.258Z",
+	"id": "...",
+	"category": "coffee" | "meal" | "shopping" | "mart",
+	"description": "블라블라",
+	"amount": 1000,
+	"createAt": "2023-01-11T05:01:39.258Z",
   "fundsAtTheTime": 100000, // 시점 잔액
 }[]
 ```
