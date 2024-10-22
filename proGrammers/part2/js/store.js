@@ -5,13 +5,13 @@
   }[]
  * detailList {
     2: {
-       id: Date.now() + 1000,
-       createAt: new Date(),
-       description: "삼겹살",
-       category: "식사",
-       amount: 20000,
-       fundsAtTheTime: 9978000,
-     }[]
+      id: Date.now() + 1000,
+      createAt: new Date(),
+      description: "삼겹살",
+      category: "식사",
+      amount: 20000,
+      fundsAtTheTime: 9978000,
+    }[]
   }
  */
 export const store = {
@@ -49,20 +49,13 @@ export function initStore() {
 
 export function addNewHistory(newHistory) {
   try {
-    // TODO:
-    /**
-     * - store의 detailList 새로 갱신
-     * - store.currentFunds 새로 갱신
-     */
-    console.log("newHistory",newHistory);
-    if(store.detailList[todayId]) {
-      store.detailList[todayId] = store.detailList[todayId].push(newHistory);
+    if(store.detailList[store.todayId]) {
+      store.detailList[store.todayId].push(newHistory);
     } else {
-      store.detailList[todayId] = [newHistory];
+      store.detailList[store.todayId] = [newHistory];
     }
 
     store.currentFunds = newHistory.amount;
-    console.log(store);
     updateStorage();
     return true;
   } catch (error) {
@@ -78,7 +71,12 @@ export function removeHistory(dateId, itemId) {
      * - store의 detailList 새로 갱신
      * - store.currentFunds 새로 갱신
      */
-    store.detailList[dateId] = null;
+    store.detailList[dateId] = store.detailList[dateId].filter(({ id, amount }) => {
+      if(id === Number(itemId)) {
+        store.currentFunds += amount;
+      }
+      return id !== Number(itemId);
+    });
 
     updateStorage();
     return true;
