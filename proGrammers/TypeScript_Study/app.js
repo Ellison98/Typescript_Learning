@@ -1,4 +1,4 @@
 function logName(name) {
     console.log(name);
 }
-logName('Im');
+logName('Seoung Su');
