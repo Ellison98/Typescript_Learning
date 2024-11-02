@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
-import ClassCom from './ClassCom';
-import FuncCom from './FuncCom';
+import Todolist from './Todolist';
+import Timer from './Timer';
 
 function App() {
   return (
     <div className="container">
-      <ClassCom></ClassCom>
-      <FuncCom></FuncCom>
+      <Todolist></Todolist>
+      <Timer></Timer>
     </div>
   );
 }
