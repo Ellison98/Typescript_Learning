@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {Button} from 'react-bootstrap';
+import TodoModal from './TodoModal';
 
 type Todo = {
     id: number;
@@ -19,6 +20,9 @@ const Todolist: React.FC = () => {
 
     const [newTodo, setNewTodo] = useState<string>('');
 
+    const [showDetail, setShowDetail] = useState<boolean>(false);
+    const [selectedTodo, setSelectedTodo] = useState<Todo | null>(null);
+
     // 체크박스 변경 핸들러
     const handleCheckedChange = (itemId: number) => {
         setTodos((prevItems) =>
@@ -35,6 +39,19 @@ const Todolist: React.FC = () => {
         }
     }
 
+    const removeTodo = (id: number) => {
+        setTodos((todos.filter((todo) => todo.id !== id)))
+    }
+
+    const handleTodoClick = (todo : Todo) => {
+        setShowDetail(true);
+        setSelectedTodo(todo);
+    }
+
+    const handleCloseDetail = () => {
+        setShowDetail(false);
+    }
+
     return (
         <div>
             <h1>{title}</h1>
@@ -43,6 +60,7 @@ const Todolist: React.FC = () => {
                     <input type="text" 
                     placeholder='할 일 입력'
                     style={{marginRight : '10px', writingMode : 'horizontal-tb'}}
+                    value={newTodo}
                     onChange={(e) => setNewTodo(e.target.value)}
                     />
                     <Button variant='warning' onClick={addTodo}>추가</Button>
@@ -58,13 +76,20 @@ const Todolist: React.FC = () => {
                                     checked={todo.isChecked}
                                     onChange={() => handleCheckedChange(todo.id)}
                                 />
-                                <span>
+                                <span onClick={() => handleTodoClick(todo)}>
                                     {todo.isChecked ? <del>{todo.text}</del> : <span>{todo.text}</span>}
                                 </span>
+                                <button 
+                                    className = 'delbutton'
+                                    onClick={() => {
+                                        removeTodo(todo.id);
+                                    }}
+                                    >삭제</button>
                             </li>
                         ))}
                     </ul>
                 </div>
+                <TodoModal show={showDetail} todo={selectedTodo} handleClose={handleCloseDetail}></TodoModal>
             </div>
         </div>
     );
