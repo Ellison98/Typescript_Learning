@@ -13,4 +13,4 @@ const boardSlice = createSlice({
     }
 });
 
-export const board = boardSlice.reducer;
+export const boardsReducer = boardSlice.reducer;

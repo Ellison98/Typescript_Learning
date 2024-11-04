@@ -10,4 +10,4 @@ export interface ILogItem {
     logAuthor: string;
     logMessage: string;
     logTimestamp: string;
-} 
+}
