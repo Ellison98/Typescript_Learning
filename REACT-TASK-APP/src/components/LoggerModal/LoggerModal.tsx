@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const LoggerModal = () => {
-  return (
-    <div>LoggerModal</div>
-  )
-}
+  return <div>LoggerModal</div>;
+};
 
-export default LoggerModal
+export default LoggerModal;

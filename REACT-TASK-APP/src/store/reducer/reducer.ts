@@ -1,11 +1,11 @@
+import { boardReducer } from "../slices/boardSlice";
 import { loggerReducer } from "../slices/loggerSlice";
-import { boardsReducer } from "../slices/boardsSlice";
-import { modalReducer } from "../slices/modalSlice";
+import { modalReduer } from "../slices/modalSlice";
 
 const reducer = {
-    logger: loggerReducer, 
-    boards: boardsReducer, 
-    modal: modalReducer,
-}
+  logger: loggerReducer,
+  modal: modalReduer,
+  board: boardReducer,
+};
 
 export default reducer;
