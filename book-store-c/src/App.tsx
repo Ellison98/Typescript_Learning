@@ -1,14 +1,18 @@
 import React from 'react';
 import Home from './pages/Home';
 import Layout from './components/layout/Layout';
-import Detail from './pages/Detail';
+import { GlobalStyle } from './style/global';
+import { ThemeProvider } from 'styled-components';
+import { dark, light } from './style/theme';
 
 function App() {
-  // return <Layout children={<Detail />} />
   return (
-    <Layout>
-      <Home />
-    </Layout>
+    <ThemeProvider theme={dark}>
+      <GlobalStyle themeName='dark'/>
+      <Layout>
+        <Home />
+      </Layout>
+    </ThemeProvider>
   )
 }
 
