@@ -23,3 +23,12 @@ export const dark: Theme = {
         scondary: 'darkgreen',
     },
 };
+
+export const getTheme = (themeName: ThemeName): Theme => {
+    switch (themeName) {
+        case 'light':
+            return light;
+        case 'dark':
+            return dark;
+    }
+};
