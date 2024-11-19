@@ -1,17 +1,11 @@
-import Home from './pages/Home';
-import Layout from './components/layout/Layout';
-import ThemeSwitcher from './components/header/ThemeSwitcher';
-import { BookStoreThemeProvider } from './context/themeContext';
+import "./App.css";
 
 function App() {
   return (
-    <BookStoreThemeProvider>
-        <ThemeSwitcher />
-        <Layout>
-          <Home />
-        </Layout>
-    </BookStoreThemeProvider>
-  )
+    <>
+      <div></div>
+    </>
+  );
 }
 
 export default App;
