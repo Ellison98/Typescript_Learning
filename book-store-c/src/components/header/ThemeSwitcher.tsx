@@ -1,10 +1,16 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "../../context/themeContext.tsx";
+import { useContext } from "react";
+import { ThemeContext } from "../../context/themeContext";
 
-const ThemeSwitcher = () => {
-  const { themeName, toggleTheme } = useContext(ThemeContext);
+function ThemeSwitcher() {
+    // const toggleTheme = () => {
+    //     setThemeName(themeName === 'light' ? 'dark' : 'light');
+    // };
 
-  return <button onClick={toggleTheme}>{themeName}</button>;
-};
+    const { themeName, toggleTheme } = useContext(ThemeContext);
 
-export default ThemeSwitcher;
+    return (
+        <button onClick={toggleTheme}>{themeName}</button>
+    )
+}
+
+export default ThemeSwitcher; 

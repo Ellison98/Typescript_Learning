@@ -1,28 +1,23 @@
 import { createGlobalStyle } from "styled-components";
-
-import { ThemeName } from "../style/theme";
+import "sanitize.css";
+import { ThemeName } from "./theme";
 
 interface Props {
-  themeName: ThemeName;
+    themeName: ThemeName;
 }
 
 export const GlobalStyle = createGlobalStyle<Props>`
     body {
-    margin : 0;
-    padding : 0;
-    background-color : ${(props) =>
-      props.themeName === "light" ? "white" : "black"};
+        margin: 0;
+        padding: 0;
+        background-color: ${(props) => (props.themeName === "light" ? "white" : "black")};
     }
 
     h1 {
-    margin : 0;
+        margin: 0;
     }
 
     * {
-    color : ${(props) => (props.themeName === "light" ? "black" : "white")}
-    }
-      
-    fieldset{
-    border : none;
+        color: ${(props) => (props.themeName === "light" ? "black" : "white")};
     }
 `;
