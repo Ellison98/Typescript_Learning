@@ -1,32 +1,38 @@
-import { create } from 'zustand';
+import { create } from "zustand";
+import { immer } from "zustand/middleware/immer";
 
 interface StoreState {
-  isloggedIn: boolean;
-  storeLogin: (token: string) => void;
-  storeLogout: () => void;
+    isLoggedIn: boolean;
+    storeLogin: (token: string) => void;
+    storeLogout: () => void;
 }
 
 export const getToken = () => {
-  const token = localStorage.getItem('token');
-  return token;
+    const token = localStorage.getItem("token");
+    console.log(token);
+    return token;
 };
 
 const setToken = (token: string) => {
-  localStorage.setItem('token', token);
+    localStorage.setItem("token", token);
 };
 
 export const removeToken = () => {
-  localStorage.removeItem('token');
+    localStorage.removeItem("token");
 };
 
-export const useAuthStore = create<StoreState>((set) => ({
-  isloggedIn: getToken() ? true : false,
-  storeLogin: (token: string) => {
-    set({ isloggedIn: true });
-    setToken(token);
-  },
-  storeLogout: () => {
-    set({ isloggedIn: false });
-    removeToken();
-  },
-}));
+export const useAuthStore = create<StoreState>()(
+    immer((set) => ({
+        isLoggedIn: !!getToken(),
+        storeLogin: (token) =>
+            set((state) => {
+                setToken(token);
+                state.isLoggedIn = true;
+            }),
+        storeLogout: () =>
+            set((state) => {
+                removeToken();
+                state.isLoggedIn = false;
+            }),
+    })),
+);

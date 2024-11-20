@@ -1,19 +1,20 @@
-import { useRouteError } from 'react-router-dom';
+import { useRouteError } from "react-router-dom";
 
 interface RouteError {
-  statusText?: string;
-  message?: string;
+    status: number;
+    statusText: string;
 }
 
-function Error() {
-  const error = useRouteError() as RouteError;
-
-  return (
-    <div>
-      <h1>오류가 발생했습니다.</h1>
-      <p>다음과 같은 오류가 발생했습니다.</p>
-    </div>
-  );
-}
+const Error = () => {
+    const error = useRouteError() as RouteError;
+    return (
+        <>
+            <h1>에러가 발생했습니다.</h1>
+            <div>다음과 같은 오류가 발생했습니다.</div>
+            <div>{error.status}</div>
+            <div>{error.statusText}</div>
+        </>
+    );
+};
 
 export default Error;
