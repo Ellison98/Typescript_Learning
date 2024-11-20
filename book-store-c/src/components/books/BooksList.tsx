@@ -1,33 +1,45 @@
-import React from "react";
-import { Book } from "../../models/book.model";
-import styled from "styled-components";
-import BooksItem from "./BooksItem";
+import { styled } from 'styled-components';
+import { Book } from '../../models/book.model';
+import BookItem from './BookItem';
+import { FC, useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { QUERYSTRING } from '../../constants/querystring';
+import { ViewMode } from './BooksViewSwitcher';
 
-const dumyBook: Book = {
-  id: 1,
-  title: "dumyBook",
-  img: 5,
-  category_id: 1,
-  form: "dumyBook sum",
-  isbn: "dumyBook isbn",
-  summary: "dumyBook sum",
-  detail: "dumyBook detail",
-  author: "dumyBook author",
-  pages: 1,
-  contents: "dumyBook",
-  price: 10000,
-  likes: 1,
-  pubDate: "2024-01-01",
-};
+interface Props {
+  books: Book[];
+}
 
-const BooksList = () => {
+const BookList: FC<Props> = ({ books }) => {
+  const [view, setView] = useState<ViewMode>('grid');
+  const location = useLocation();
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const view = params.get(QUERYSTRING.VIEW);
+    if (view) {
+      setView(view as ViewMode);
+    }
+  }, [location.search]);
+
   return (
-    <BooksListStyle>
-      <BooksItem book={dumyBook} />
-    </BooksListStyle>
+    <BookListStyle view={view}>
+      {books.map((book) => (
+        <BookItem book={book} key={book.id} view={view} />
+      ))}
+    </BookListStyle>
   );
 };
 
-const BooksListStyle = styled.div``;
+interface BookListStyleProps {
+  view: ViewMode;
+}
 
-export default BooksList;
+const BookListStyle = styled.div<BookListStyleProps>`
+  display: grid;
+  grid-template-columns: ${({ view }) =>
+    view === 'grid' ? 'repeat(4, 1fr)' : 'repeat(1, 1fr)'};
+  gap: 24px;
+`;
+
+export default BookList;

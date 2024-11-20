@@ -1,36 +1,66 @@
-import React, { useEffect } from "react";
+import { FaList, FaTh } from 'react-icons/fa';
+import { styled } from 'styled-components';
+import Button from '../common/Button';
+import { useSearchParams } from 'react-router-dom';
+import { QUERYSTRING } from '../../constants/querystring';
+import { useEffect } from 'react';
 
 const viewOptions = [
   {
-    value: "list",
+    value: 'list',
     icon: <FaList />,
   },
   {
-    value: "grid",
-    icon: <FaList />,
+    value: 'grid',
+    icon: <FaTh />,
   },
 ];
 
-const BooksViewSwitcher = () => {
-  const handleSwitch = (value: string) => {
+export type ViewMode = 'grid' | 'list';
+
+const BookViewSwitcher = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleSwitch = (value: ViewMode) => {
     const newSearchParams = new URLSearchParams(searchParams);
 
-    newSearchParams.set(value, value);
+    newSearchParams.set(QUERYSTRING.VIEW, value);
+
     setSearchParams(newSearchParams);
   };
 
+  // 최초의 VIEW 기본값 설정
   useEffect(() => {
-    if (!searchParams.get(values)) {
-      handleSwitch("grid");
+    if (!searchParams.get(QUERYSTRING.VIEW)) {
+      handleSwitch('grid');
     }
-  });
+  }, []);
+
   return (
-    <div>
-      {viewOptions.map((i) => {
-        <button key={i.vlaue}></button>;
-      })}
-    </div>
+    <BookViewSwitcherStyle>
+      {viewOptions.map((option) => (
+        <Button
+          size='medium'
+          scheme={
+            searchParams.get(QUERYSTRING.VIEW) === option.value
+              ? 'primary'
+              : 'normal'
+          }
+          onClick={() => handleSwitch(option.value as ViewMode)}
+        >
+          {option.icon}
+        </Button>
+      ))}
+    </BookViewSwitcherStyle>
   );
 };
 
-export default BooksViewSwitcher;
+const BookViewSwitcherStyle = styled.div`
+  display: flex;
+  gap: 8px;
+  svg {
+    fill: #fff;
+  }
+`;
+
+export default BookViewSwitcher;

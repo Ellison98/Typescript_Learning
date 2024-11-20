@@ -1,19 +1,19 @@
-export type ThemeName = "light" | "dark";
-
-export type Colorkey =
-  | "primary"
-  | "background"
-  | "secondary"
-  | "third"
-  | "border"
-  | "text";
-export type HeadingSize = "large" | "medium" | "small";
-export type ButtonSize = "large" | "medium" | "small";
-export type ButtonScheme = "primary" | "normal";
+export type ThemeName = 'light' | 'dark';
+export type ColorKey =
+  | 'primary'
+  | 'background'
+  | 'secondary'
+  | 'third'
+  | 'border'
+  | 'text';
+export type HeadingSize = 'large' | 'medium' | 'small';
+export type ButtonSize = 'large' | 'medium' | 'small';
+export type ButtonScheme = 'primary' | 'normal' | 'like';
+export type LayoutWidth = 'large' | 'medium' | 'small';
 
 interface Theme {
-  name: ThemeName;
-  color: Record<Colorkey, string>;
+  name: string; // ThemeName에서 string으로 변경
+  color: Record<ColorKey, string>;
   heading: {
     [key in HeadingSize]: {
       fontSize: string;
@@ -31,51 +31,95 @@ interface Theme {
       backgroundColor: string;
     };
   };
+  borderRadius: {
+    default: string;
+  };
+  layout: {
+    width: {
+      [key in LayoutWidth]: string;
+    };
+  };
 }
 
 export const light: Theme = {
-  name: "light",
+  name: 'light',
   color: {
-    primary: "brown",
-    background: "lightgray",
-    secondary: "blue",
-    third: "greem",
-    border: "grey",
-    text: "blue",
+    primary: '#ff5800',
+    secondary: '#5f5f5f', // 소문자 `#5f5f5f` 유지
+    background: 'lightgray',
+    third: 'grin',
+    border: 'grey',
+    text: 'black',
   },
   heading: {
     large: {
-      fontSize: "2rem",
+      fontSize: '2rem',
     },
     medium: {
-      fontSize: "1.5rem",
+      fontSize: '1.5rem',
     },
     small: {
-      fontSize: "1rem",
+      fontSize: '1rem',
     },
   },
   button: {
     large: {
-      fontSize: "1.5rem",
-      padding: "1rem 2rem",
+      fontSize: '1.5rem',
+      padding: '1rem 2rem',
     },
     medium: {
-      fontSize: "1rem",
-      padding: "0.5rem 1rem",
+      fontSize: '1rem',
+      padding: '0.5rem 1rem',
     },
     small: {
-      fontSize: "0.75rem",
-      padding: "0.25rem 0.5rem",
+      fontSize: '0.75rem', // 두 번째 코드 기반 추가
+      padding: '0.25rem 0.5rem',
     },
   },
   buttonScheme: {
     primary: {
-      color: "white",
-      backgroundColor: "midnightblur",
+      color: 'white',
+      backgroundColor: 'midnightblue',
     },
     normal: {
-      color: "black",
-      backgroundColor: "lightgrey",
+      color: 'black',
+      backgroundColor: 'lightgrey',
+    },
+    like: {
+      color: 'white',
+      backgroundColor: 'coral',
     },
   },
+  borderRadius: {
+    default: '4px',
+  },
+  layout: {
+    width: {
+      large: '1020px',
+      medium: '760px',
+      small: '320px',
+    },
+  },
+};
+
+export const dark: Theme = {
+  ...light,
+  name: 'dark',
+  color: {
+    primary: 'coral',
+    background: 'midnightblue',
+    secondary: 'darkblue', // 두 번째 코드 기반 수정
+    third: 'darkgreen', // 두 번째 코드 기반 수정
+    border: 'grey',
+    text: 'black',
+  },
+};
+
+export const getTheme = (themeName: ThemeName): Theme => {
+  switch (themeName) {
+    case 'light':
+      return light;
+    case 'dark':
+      return dark;
+  }
 };
