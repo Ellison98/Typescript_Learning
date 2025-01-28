@@ -12,7 +12,7 @@ function Counter(props) {
 function App() {
   return (
     <div>
-      <Counter title="불면증 카운터" initValue="10"/>
+      <Counter title="불면증 카운터" initValue={10}/>
     </div>
   );
 }
